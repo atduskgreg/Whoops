@@ -19,19 +19,16 @@ module Whoops
     end
     
     def room_for?(beat)
-      # current_length + beat.duration <= target_length
+      current_length + beat.duration <= target_length
     end
     
     def open?
-      # current_length < target_legnth
+      current_length < target_legnth
     end
     
     def close
-      # silent_duration = target_length - current_length
-      # self.append_beat(Beat.new( :duration => silent_duration, :pitch => nil ))
+      silent_duration = target_length - current_length
+      self.append_beat(Beat.new( :duration => silent_duration, :pitch => nil ))
     end
-    
-    
-    
   end
 end
