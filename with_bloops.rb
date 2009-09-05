@@ -30,11 +30,11 @@ hat.sustain =  0.01
 hat.decay   =  0.12
 hat.freq    =  0.99
 
-s1 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [1,2,4,8,6])
+s1 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [2,2,6])
 
-s2 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [1,2,4,8,6])
+s2 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [4,4,4,8])
 
-s3 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [1,2,4,8,6])
+s3 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [4,4,4,4,4,6])
 
 puts "SNARE:"
 puts "#{s1}"
