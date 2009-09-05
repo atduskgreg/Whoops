@@ -1,5 +1,8 @@
 module Whoops
   class Beat
+    PITCHES   = %W{C C# D D# E F F# G G# A A# B B#}
+    DURATIONS = [1, 2, 3, 4, 9, 8]
+    
     attr_accessor :duration, :pitch
     
     def initialize(d, p)
@@ -9,7 +12,7 @@ module Whoops
     
     def generate
       # deal with octave?
-      "#{duration}#{pitch}"
+      "#{duration}#{pitch || " "}"
     end
     
     def quarter_note_value
@@ -18,11 +21,37 @@ module Whoops
   end
   
   class Sequence
-    attr_accessor :target_length, :beats
+    attr_accessor :target_length, :beats, :closed
+    
+    # Sequence.generate :pitches => ["A", "B"],
+    #                   :durations => [1, 3, 4],
+    #                   :length => 64
+    def self.generate(opts)
+      sequence = Sequence.new :target_length => opts[:length]
+      pitches = opts[:pitches] || Beat::PITCHES
+      durations = opts[:durations] || Beat::DURATIONS
+
+      while sequence.open?
+        beat = Beat.new pick_from( durations ), pick_from( pitches )
+        sequence << beat
+      end
+      
+      sequence
+    end
+    
+    def self.pick_from(list)
+      list[rand(list.length)]
+    end
     
     def initialize(opts)
       @target_length  = opts[:target_length]
       @beats          = []
+    end
+    
+    def to_s
+      result = ""
+      beats.each{|b| result << "#{b.generate} "}
+      result
     end
     
     def <<(beat)
@@ -49,12 +78,11 @@ module Whoops
     end
     
     def open?
-      current_length < target_length
+      !@closed
     end
     
     def close
-      silent_duration = target_length - current_length
-      self.append_beat(Beat.new( silent_duration.to_i * 4, nil ))
+      @closed = true
     end
   end
 end
