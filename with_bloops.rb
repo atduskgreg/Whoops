@@ -36,6 +36,15 @@ s2 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [
 
 s3 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [1,2,4,8,6])
 
+puts "SNARE:"
+puts "#{s1}"
+
+puts "BASE:"
+puts "#{s2}"
+
+puts "HAT:"
+puts "#{s3}"
+
 b.tune snare, <<-Q
   #{s1}
 Q
@@ -47,8 +56,6 @@ Q
 b.tune hat, <<-Q
   #{s3}
 Q
-
-
 
 b.play
 sleep 0.01 while not b.stopped?
