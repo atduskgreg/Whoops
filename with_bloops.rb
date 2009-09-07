@@ -30,11 +30,20 @@ hat.sustain =  0.01
 hat.decay   =  0.12
 hat.freq    =  0.99
 
-s1 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [2,2,6])
+g = b.sound Bloops::SAWTOOTH
+g.sustain = 0.306
+g.decay   = 0.477
+g.freq    = 0.429
+
+s1 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [2,2])
 
 s2 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [4,4,4,8])
 
-s3 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [4,4,4,4,4,6])
+s3 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [4,4,4,4,4])
+
+s4 = Whoops::Sequence.generate(:length => 64, :pitches => ["B", "G", "C", "C", "E", "C", "A", "E"], :durations => [8, 8, 8, 8, 16])
+
+s6 = Whoops::Sequence.generate(:length => 64, :pitches => ["B", "G", "C", "C", "E", "C", "A", "E"], :durations => [1, 1, 2, 2, 2, 4])
 
 puts "SNARE:"
 puts "#{s1}"
@@ -44,6 +53,12 @@ puts "#{s2}"
 
 puts "HAT:"
 puts "#{s3}"
+
+b.tune g, s4.to_s
+
+b.tune g, <<-Q
+- #{s6}
+Q
 
 b.tune snare, <<-Q
   #{s1}
