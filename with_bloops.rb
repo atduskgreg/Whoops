@@ -48,6 +48,7 @@ g2.decay   = 0.7
 g2.freq    = 0.429
 g2.volume = 0.2
 
+
 s0 = Whoops::Sequence.generate(:length => 48, :pitches => ["C", " ", " ", " ", " "], :durations => [16, 16, 16, 32, 32, 18, 9])
 
 
@@ -57,8 +58,12 @@ s2 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [
 
 s3 = Whoops::Sequence.generate(:length => 64, :pitches => ["C"], :durations => [4,4,4,4,4])
 
-s4 = Whoops::Sequence.generate(:length => 64, :pitches => ["D", "B", "G", "C", "C", "E", "C", "A", "A", "E", "E"], :durations => [1, 1, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 9])
+s4 = Whoops::Sequence.generate(:length => 64, :pitches => [" ", " ", " ",  "A", "G", "C", "C", "E", "C", "A", "A", "E", "E", "B"], :durations => [1, 1, 2, 2, 4, 1, 4, 4, 4, 4, 4, 4, 8, 8, 9])
 
+s5 = Whoops::Sequence.generate(:length => 8, :pitches => ["C", "C", "E", "C", "A", "A", "E", "E"], :durations => [32, 64, 64])
+                                                                                                                  
+                                                                                                                  
+s7 = Whoops::Sequence.generate(:length => 8, :pitches => ["G", "G", "D", "G", "A#", "A#", "D", "D"], :durations => [32, 64, 64])
 
 s6 = Whoops::Sequence.generate(:length => 64, :pitches => ["C", "E", "C", "A", "E"], :durations => [1, 1, 2, 2, 2, 2, 4, 4])
 
@@ -78,7 +83,13 @@ puts "#{s3}"
 b.tune g, s4.to_s
 b.tune g2, s4.to_s
 
-b.tune hat2, "1 1 1 1 #{s0.to_s}"
+# b.tune g2, " 1 1 1 1 #{s5} 1 1 #{s7} 1 1 #{s5} 1 1"
+# # b.tune g, "- 1 1 1 1 1 1 1 1 #{s7} 1 1 1 1  1 1"
+# # b.tune g, "+ 1 1 1 1 #{s5} 1 1 #{s7} 1 1 #{s5} 1 1"
+# b.tune g2, "+ + 1 1 1 1 #{s5} 1 1 #{s7} 1 1 #{s5} 1 1"
+
+
+b.tune hat2, "1 1 1 1 #{s0}"
 
 b.tune g, <<-Q
 - #{s6}
@@ -100,5 +111,7 @@ b.tune hat, <<-Q
   #{s3}
 Q
 
-b.play
-sleep 0.01 while not b.stopped?
+while true do
+  b.play
+  sleep 0.01 while not b.stopped?
+end
